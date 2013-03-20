@@ -1,6 +1,8 @@
 package com.example.treeview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,6 +26,7 @@ public class TreeNode extends View {
   private Paint rectPaint;
   private Paint textPaint;
   private RectF rect;
+  private Bitmap bmp;
 
   public TreeNode(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
@@ -92,6 +95,8 @@ public class TreeNode extends View {
     textPaint.setTextSize(18);
     
     rect = new RectF(0,0,width,height);
+    
+    bmp = BitmapFactory.decodeResource(getResources(), R.drawable.kirk);
   }
 
   @Override
@@ -106,6 +111,8 @@ public class TreeNode extends View {
     canvas.drawRoundRect(rect, 8, 8, rectPaint);
     canvas.drawText(name, 65, 25, textPaint);
     canvas.drawText(years, 65, 55, textPaint);
+    
+    canvas.drawBitmap(bmp, 5, 5, null);
     
     canvas.restore();
   }
