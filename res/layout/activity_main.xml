@@ -1,13 +1,13 @@
 <com.example.treeview.TreeView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/TreeView1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:hardwareAccelerated="true"
     android:paddingBottom="@dimen/tree_view_margin"
     android:paddingLeft="@dimen/tree_view_margin"
     android:paddingRight="@dimen/tree_view_margin"
     android:paddingTop="@dimen/tree_view_margin"
-    android:hardwareAccelerated="true"
     tools:context=".MainActivity" >
 
 </com.example.treeview.TreeView>

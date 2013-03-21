@@ -119,7 +119,7 @@ public abstract class ZoomViewGroup extends ViewGroup {
     public void onLongClickEvent(PointF rawPoint) {
     }
 
-    protected void prepareCanvasZoom(Canvas canvasToPrepare) {
+    protected void prepareCanvasZoom(Canvas canvasToPrepare) { 
         Matrix zoomMatrix = getCanvasCamera().getTransformMatrix();
         canvasToPrepare.setMatrix(zoomMatrix);
     }

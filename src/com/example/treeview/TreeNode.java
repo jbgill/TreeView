@@ -16,6 +16,7 @@ public class TreeNode extends View {
   private float scaleFactor = 1f;
   private String name = "Testing";
   private String years = "";
+  private String gender = "M";
   
   private static final int width = 250;
   private static final int height = 60;
@@ -43,6 +44,14 @@ public class TreeNode extends View {
     init();
   }
   
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
   public float getScaleFactor() {
     return scaleFactor;
   }
