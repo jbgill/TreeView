@@ -83,6 +83,14 @@ public class TreeNode extends View {
     this.mother = mother;
   }
   
+  public int getOriginalWidth() {
+    return width;
+  }
+  
+  public int getOriginalHeight() {
+    return height;
+  }
+  
 
   private void init() {
     rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
