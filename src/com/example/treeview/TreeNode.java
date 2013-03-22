@@ -7,48 +7,47 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.AttributeSet;
-import android.view.View;
 
-public class TreeNode extends View {
+public class TreeNode {
   
-  private float scaleFactor = 1f;
   private String name = "Testing";
   private String years = "";
+  private boolean selected = false;
   
-  private static final int width = 250;
-  private static final int height = 60;
+  public static final int WIDTH = 250;
+  public static final int HEIGHT = 60;
   
   private TreeNode father = null;
   private TreeNode mother = null;
   
-  private Paint rectPaint;
-  private Paint textPaint;
+  private static Paint rectPaint;
+  private static Paint selectedRectPaint;
+  private static Paint textPaint;
   private RectF rect;
   private Bitmap bmp;
-
-  public TreeNode(Context context, AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
-    init();
-  }
-
-  public TreeNode(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    init();
+  private Context context;
+  
+  static {
+    rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    rectPaint.setStyle(Style.FILL);
+    rectPaint.setColor(Color.YELLOW);
+    
+    selectedRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    selectedRectPaint.setStyle(Style.FILL);
+    selectedRectPaint.setColor(Color.LTGRAY);
+    
+    
+    textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    textPaint.setColor(Color.BLACK);
+    textPaint.setStyle(Style.FILL);
+    textPaint.setTextSize(18);    
   }
 
   public TreeNode(Context context) {
-    super(context);
+    this.context = context;
     init();
-  }
-  
-  public float getScaleFactor() {
-    return scaleFactor;
-  }
-
-  public void setScaleFactor(float scaleFactor) {
-    this.scaleFactor = scaleFactor;
   }
   
   public String getName() {
@@ -83,47 +82,41 @@ public class TreeNode extends View {
     this.mother = mother;
   }
   
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
+  }
 
   private void init() {
-    rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    rectPaint.setStyle(Style.FILL);
-    rectPaint.setColor(Color.YELLOW);
+    rect = new RectF(0, 0, WIDTH, HEIGHT);
     
-    textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    textPaint.setColor(Color.BLACK);
-    textPaint.setStyle(Style.FILL);
-    textPaint.setTextSize(18);
-    
-    rect = new RectF(0,0,width,height);
-    
-    bmp = BitmapFactory.decodeResource(getResources(), R.drawable.kirk);
+    bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.kirk);
   }
 
-  @Override
-  public void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-
-    canvas.save();
-
-    canvas.scale(scaleFactor, scaleFactor);
-
-    // draw it:
-    canvas.drawRoundRect(rect, 8, 8, rectPaint);
-    canvas.drawText(name, 65, 25, textPaint);
-    canvas.drawText(years, 65, 55, textPaint);
+  public void draw(Canvas canvas, float x, float y) {
+    rect.offsetTo(x, y); // rect now defines the bounds of this node, and where it is on the canvas
+    if (selected) {
+      canvas.drawRoundRect(rect, 8, 8, selectedRectPaint);
+    } else {
+      canvas.drawRoundRect(rect, 8, 8, rectPaint);
+    }
+    canvas.drawText(name, 65+x, 25+y, textPaint);
+    canvas.drawText(years, 65+x, 55+y, textPaint);
     
-    canvas.drawBitmap(bmp, 5, 5, null);
+    canvas.drawBitmap(bmp, 5+x, 5+y, null);
     
-    canvas.restore();
   }
   
-  @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-    int wspec = MeasureSpec.makeMeasureSpec((int) (width * scaleFactor), MeasureSpec.UNSPECIFIED);
-    int hspec = MeasureSpec.makeMeasureSpec((int) (height * scaleFactor), MeasureSpec.UNSPECIFIED);
-
-    this.setMeasuredDimension(wspec, hspec);
+  /**
+   * Is point p in the bounds of this TreeNode?
+   * @param p
+   * @return
+   */
+  public boolean isPointInBounds(PointF p) {
+    return rect.contains(p.x, p.y);    
   }
-
+  
 }
