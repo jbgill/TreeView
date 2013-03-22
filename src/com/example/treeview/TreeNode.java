@@ -7,12 +7,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.PointF;
 import android.graphics.RectF;
 
 public class TreeNode {
   
   private String name = "Testing";
   private String years = "";
+  private boolean selected = false;
   
   public static final int WIDTH = 250;
   public static final int HEIGHT = 60;
@@ -21,6 +23,7 @@ public class TreeNode {
   private TreeNode mother = null;
   
   private static Paint rectPaint;
+  private static Paint selectedRectPaint;
   private static Paint textPaint;
   private RectF rect;
   private Bitmap bmp;
@@ -30,6 +33,11 @@ public class TreeNode {
     rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     rectPaint.setStyle(Style.FILL);
     rectPaint.setColor(Color.YELLOW);
+    
+    selectedRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    selectedRectPaint.setStyle(Style.FILL);
+    selectedRectPaint.setColor(Color.LTGRAY);
+    
     
     textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     textPaint.setColor(Color.BLACK);
@@ -74,6 +82,13 @@ public class TreeNode {
     this.mother = mother;
   }
   
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
+  }
 
   private void init() {
     rect = new RectF(0, 0, WIDTH, HEIGHT);
@@ -83,12 +98,25 @@ public class TreeNode {
 
   public void draw(Canvas canvas, float x, float y) {
     rect.offsetTo(x, y); // rect now defines the bounds of this node, and where it is on the canvas
-    canvas.drawRoundRect(rect, 8, 8, rectPaint);
+    if (selected) {
+      canvas.drawRoundRect(rect, 8, 8, selectedRectPaint);
+    } else {
+      canvas.drawRoundRect(rect, 8, 8, rectPaint);
+    }
     canvas.drawText(name, 65+x, 25+y, textPaint);
     canvas.drawText(years, 65+x, 55+y, textPaint);
     
     canvas.drawBitmap(bmp, 5+x, 5+y, null);
     
+  }
+  
+  /**
+   * Is point p in the bounds of this TreeNode?
+   * @param p
+   * @return
+   */
+  public boolean isPointInBounds(PointF p) {
+    return rect.contains(p.x, p.y);    
   }
   
 }

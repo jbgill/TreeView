@@ -6,13 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 public class TreeView extends ZoomView {
 
   private Paint paint;
   
   private TreeNode rootNode = null;
+  private TreeNode selectedNode = null;
   
   // margin between left size of view and root node
   private static final int LEFT_MARGIN = 5;
@@ -45,8 +48,56 @@ public class TreeView extends ZoomView {
 
   }
   
+  public TreeNode getSelectedNode() {
+    return selectedNode;
+  }
+
+  public void setSelectedNode(TreeNode selectedNode) {
+    this.selectedNode = selectedNode;
+  }
+
+  public TreeNode getRootNode() {
+    return rootNode;
+  }
+  
   public void setRootNode(TreeNode tn) {
     rootNode = tn;
+  }
+
+  @Override
+  public void onClickEvent(MotionEvent event) {
+    PointF transformedPoint = getAsAbsoluteCoordinate(event.getX(), event.getY());
+    TreeNode clickedNode = this.findNodeByContainingPoint(rootNode, transformedPoint);
+    if (clickedNode != null) {
+      if (selectedNode != null) {
+        selectedNode.setSelected(false);
+      }
+      selectedNode = clickedNode;
+      clickedNode.setSelected(true);
+      invalidate();
+    } 
+  }
+  
+  private TreeNode findNodeByContainingPoint(TreeNode node, PointF p) {
+    if (node.isPointInBounds(p)) {
+      return node;
+    } else {
+      TreeNode father = node.getFather();
+      TreeNode mother = node.getMother();
+      if (father != null) {
+        TreeNode n = findNodeByContainingPoint(father, p);
+        if (n != null) {
+          return n;
+        }
+      }
+      if (mother != null) {
+        TreeNode n = findNodeByContainingPoint(mother, p);
+        if (n != null) {
+          return n;
+        }        
+      }
+    }
+    return null;
   }
 
   @Override
