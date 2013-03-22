@@ -29,9 +29,6 @@ public class MainActivity extends Activity {
     tn1.setFather(tn2);
     tn1.setMother(tn3);
     
-    tv.addView(tn1);
-    tv.addView(tn2);
-    tv.addView(tn3);
     tv.setRootNode(tn1);
   }
 
