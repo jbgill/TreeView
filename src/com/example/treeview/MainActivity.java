@@ -23,11 +23,31 @@ public class MainActivity extends Activity {
     tn2.setYears("2080 - 2145");
     
     TreeNode tn3 = new TreeNode(this);
-    tn3.setName("Mama Kirk");
+    tn3.setName("Mama Klingon");
     tn3.setYears("2080 - 2150");
+    
+    TreeNode tn4 = new TreeNode(this);
+    tn4.setName("Grand Papa Kirk");
+    tn4.setYears("2080 - 2145");
 
+    TreeNode tn5 = new TreeNode(this);
+    tn5.setName("Grand Mama Spock");
+    tn5.setYears("2080 - 2145");
+    
+    TreeNode tn6 = new TreeNode(this);
+    tn6.setName("Grand Papa Klingon");
+    tn6.setYears("2080 - 2145");
+
+    TreeNode tn7 = new TreeNode(this);
+    tn7.setName("Grand Mama Vulcan");
+    tn7.setYears("2080 - 2145");
+    
     tn1.setFather(tn2);
     tn1.setMother(tn3);
+    tn2.setFather(tn4);
+    tn2.setMother(tn5);
+    tn3.setFather(tn6);
+    tn3.setMother(tn7);
     
     tv.setRootNode(tn1);
   }
