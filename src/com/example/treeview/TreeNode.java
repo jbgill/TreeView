@@ -17,8 +17,26 @@ public class TreeNode {
   private boolean selected = false;
   private String gender = "M";
   
-  public static final int WIDTH = 250;
-  public static final int HEIGHT = 60;
+  public static final int WIDTH = 500;
+  public static final int HEIGHT = 120;
+  //public static final int WIDTH = 250;
+  //public static final int HEIGHT = 60;
+  
+  private static final int CORNER_RADIUS = 16;
+  private static final int TEXT_LEFT = 130;
+  private static final int PIC_MARGIN = 10;
+  private static final int LINE1_VERT_OFFSET = 50;
+  private static final int LINE2_VERT_OFFSET = 110;
+  private static final int TEXT_SIZE=36;
+//  private static final int CORNER_RADIUS = 8;
+//  private static final int TEXT_LEFT = 65;
+//  private static final int PIC_MARGIN = 5;
+//  private static final int LINE1_VERT_OFFSET = 25;
+//  private static final int LINE2_VERT_OFFSET = 55;
+//  private static final int TEXT_SIZE=18;
+  
+  
+
   
   private TreeNode father = null;
   private TreeNode mother = null;
@@ -43,7 +61,7 @@ public class TreeNode {
     textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     textPaint.setColor(Color.BLACK);
     textPaint.setStyle(Style.FILL);
-    textPaint.setTextSize(18);    
+    textPaint.setTextSize(TEXT_SIZE);    
   }
 
   public TreeNode(Context context) {
@@ -108,14 +126,14 @@ public class TreeNode {
   public void draw(Canvas canvas, float x, float y) {
     rect.offsetTo(x, y); // rect now defines the bounds of this node, and where it is on the canvas
     if (selected) {
-      canvas.drawRoundRect(rect, 8, 8, selectedRectPaint);
+      canvas.drawRoundRect(rect, CORNER_RADIUS, CORNER_RADIUS, selectedRectPaint);
     } else {
-      canvas.drawRoundRect(rect, 8, 8, rectPaint);
+      canvas.drawRoundRect(rect, CORNER_RADIUS, CORNER_RADIUS, rectPaint);
     }
-    canvas.drawText(name, 65+x, 25+y, textPaint);
-    canvas.drawText(years, 65+x, 55+y, textPaint);
+    canvas.drawText(name, TEXT_LEFT+x, LINE1_VERT_OFFSET+y, textPaint);
+    canvas.drawText(years, TEXT_LEFT+x, LINE2_VERT_OFFSET+y, textPaint);
     
-    canvas.drawBitmap(bmp, 5+x, 5+y, null);
+    canvas.drawBitmap(bmp, PIC_MARGIN+x, PIC_MARGIN+y, null);
     
   }
   

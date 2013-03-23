@@ -25,7 +25,7 @@ public class ZoomView extends View {
     protected static int ACTION_MODE_DRAG = 1;
     protected static int ACTION_MODE_ZOOM = 2;
     protected static int ACTION_MODE_PAN_IN_CORNERS = 3;
-    private static float MIN_ZOOM = 0.25f;
+    private static float MIN_ZOOM = 0.1f;
     private static float MAX_ZOOM = 4f;
     protected static int LONGPRESS_TIME = 500;
     
