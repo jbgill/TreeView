@@ -157,7 +157,9 @@ public class TreeView extends ZoomView {
   }
   
   private void drawTree(Canvas canvas) {
-    //int myHeight = this.getHeight();
+    if (rootNode == null) {
+      return;
+    }
     int vCenter = (int) (treeHeight / 2);
     int nodeWidth = TreeNode.WIDTH;
     int nodeHeight = TreeNode.HEIGHT;

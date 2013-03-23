@@ -15,6 +15,7 @@ public class TreeNode {
   private String name = "Testing";
   private String years = "";
   private boolean selected = false;
+  private String gender = "M";
   
   public static final int WIDTH = 250;
   public static final int HEIGHT = 60;
@@ -32,7 +33,7 @@ public class TreeNode {
   static {
     rectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     rectPaint.setStyle(Style.FILL);
-    rectPaint.setColor(Color.YELLOW);
+    rectPaint.setColor(Color.WHITE);
     
     selectedRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     selectedRectPaint.setStyle(Style.FILL);
@@ -88,6 +89,14 @@ public class TreeNode {
 
   public void setSelected(boolean selected) {
     this.selected = selected;
+  }
+  
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
   private void init() {

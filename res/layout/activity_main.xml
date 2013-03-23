@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/tree_view_margin"
     android:paddingRight="@dimen/tree_view_margin"
     android:paddingTop="@dimen/tree_view_margin"
+    android:background="@drawable/bgtile"
     tools:context=".MainActivity" >
 
 </com.example.treeview.TreeView>
