@@ -19,13 +19,13 @@ public class TreeView extends ZoomView {
   private TreeNode selectedNode = null;
   
   // margin between sides of view and nodes
-  private static final int MARGIN = 5;
+  private static final int MARGIN = 10;
   
   // horizontal gap between nodes
-  private static final int H_GAP = 30;
+  private static final int H_GAP = 60;
   
   // minimum vertical gap between nodes
-  private static final int MIN_V_GAP = 30;
+  private static final int MIN_V_GAP = 60;
   
   // how much room will the tree take unscaled?
   private int treeWidth=0;
@@ -54,7 +54,7 @@ public class TreeView extends ZoomView {
   private void init() {
     // paint object for lines
     bracketLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    bracketLinePaint.setColor(Color.BLUE);
+    bracketLinePaint.setColor(Color.BLACK);
     bracketLinePaint.setStrokeWidth(2f);
     bracketLinePaint.setStyle(Style.STROKE);
     
@@ -157,7 +157,9 @@ public class TreeView extends ZoomView {
   }
   
   private void drawTree(Canvas canvas) {
-    //int myHeight = this.getHeight();
+    if (rootNode == null) {
+      return;
+    }
     int vCenter = (int) (treeHeight / 2);
     int nodeWidth = TreeNode.WIDTH;
     int nodeHeight = TreeNode.HEIGHT;
