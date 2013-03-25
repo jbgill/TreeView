@@ -22,11 +22,9 @@ public class TreeView extends ZoomView {
   private static final int MARGIN = 10;
   
   // horizontal gap between nodes
-  //private static final int H_GAP = 30;
   private static final int H_GAP = 60;
   
   // minimum vertical gap between nodes
-  //private static final int MIN_V_GAP = 30;
   private static final int MIN_V_GAP = 60;
   
   // how much room will the tree take unscaled?
